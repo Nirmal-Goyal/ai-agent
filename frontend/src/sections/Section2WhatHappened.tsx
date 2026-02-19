@@ -25,8 +25,9 @@ export function Section2WhatHappened({ data }: { data: RunResponse }) {
       >
         {isPassed ? (
           <p style={{ margin: 0 }}>
-            The agent successfully fixed all issues and tests passed. You can safely merge the pull
-            request.
+            {totalFixes > 0
+              ? "The agent successfully fixed all issues and tests passed. You can safely merge the pull request."
+              : "All tests passed on the first run. No fixes were needed."}
           </p>
         ) : (
           <>

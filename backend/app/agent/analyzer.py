@@ -3,12 +3,13 @@ from datetime import datetime, timezone
 from typing import Any
 
 from app.agent.state import AgentState, FailureInfo
-from app.services.test_runner import run_pytest
+from app.services.test_runner import run_pytest, run_syntax_check
 
 # Hardcoded pattern -> bug type mappings
 PATTERN_TO_BUG_TYPE = {
     "unused import": "LINTING",
     "SyntaxError": "SYNTAX",
+    "invalid syntax": "SYNTAX",
     "missing ':'": "SYNTAX",
     "expected ':'": "SYNTAX",
     "IndentationError": "INDENTATION",
@@ -107,18 +108,48 @@ def parse_pytest_failures(test_output: str, repo_path: str = "") -> list[Failure
     return unique
 
 
+def _syntax_failures_to_failure_info(
+    syntax_failures: list[tuple[str, int | None, str]]
+) -> list[FailureInfo]:
+    """Convert syntax check results to FailureInfo with bug type detection."""
+    result: list[FailureInfo] = []
+    for file_path, line, error_msg in syntax_failures:
+        bug_type = detect_bug_type(error_msg) or "SYNTAX"
+        result.append(
+            FailureInfo(file=file_path, line=line, bug_type=bug_type, error_snippet=error_msg)
+        )
+    return result
+
+
 def analyzer_node(state: AgentState) -> dict[str, Any]:
-    """Run pytest, capture stdout/stderr, parse failures with known bug types only."""
+    """
+    Run syntax check on all .py files (catches errors in code tests never import),
+    then run pytest. Failures from either step are merged.
+    """
     repo_path = state.get("repo_path", "")
     if not repo_path:
         return {"failures": [], "errors": []}
 
     from pathlib import Path
 
-    exit_code, stdout, stderr = run_pytest(Path(repo_path))
-    test_output = stdout + "\n" + stderr
+    path = Path(repo_path)
+    failures: list[FailureInfo] = []
+    exit_code = 0
+    test_output = ""
 
-    failures = parse_pytest_failures(test_output, repo_path)
+    # 1. Syntax check: catches SyntaxError/IndentationError in files tests never import
+    syn_exit, syn_out, syn_failures = run_syntax_check(path)
+    if syn_failures:
+        failures.extend(_syntax_failures_to_failure_info(syn_failures))
+        exit_code = 1
+        test_output = syn_out
+
+    # 2. Pytest: only run if syntax check passed (otherwise collection may fail redundantly)
+    if exit_code == 0:
+        exit_code, stdout, stderr = run_pytest(path)
+        test_output = stdout + "\n" + stderr
+        failures = parse_pytest_failures(test_output, repo_path)
+
     status = "PASSED" if exit_code == 0 else "FAILED"
     ci_timeline = [
         {"iteration": 1, "status": status, "timestamp": datetime.now(timezone.utc).isoformat()}
@@ -126,8 +157,8 @@ def analyzer_node(state: AgentState) -> dict[str, Any]:
 
     return {
         "test_output": test_output,
-        "test_stdout": stdout,
-        "test_stderr": stderr,
+        "test_stdout": test_output.split("\n\n")[0] if test_output else "",
+        "test_stderr": "",
         "test_exit_code": exit_code,
         "failures": failures,
         "ci_timeline": ci_timeline,

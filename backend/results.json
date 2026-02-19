@@ -1,12 +1,12 @@
 {
   "repo_url": "https://github.com/Nirmal-Goyal/python-test-2",
   "team_name": "CodeCrew",
-  "team_leader_name": "gif",
-  "branch_name": "CODECREW_GIF_AI_Fix",
+  "team_leader_name": "fyu",
+  "branch_name": "CODECREW_FYU_AI_Fix",
   "total_failures": 0,
   "total_fixes_applied": 1,
   "ci_status": "PASSED",
-  "total_time_seconds": 11.18,
+  "total_time_seconds": 8.12,
   "score": {
     "base": 100,
     "speed_bonus": 10,
@@ -27,12 +27,12 @@
     {
       "iteration": 1,
       "status": "FAILED",
-      "timestamp": "2026-02-19T22:14:29.793372+00:00"
+      "timestamp": "2026-02-19T22:41:55.812429+00:00"
     },
     {
       "iteration": 2,
       "status": "PASSED",
-      "timestamp": "2026-02-19T22:14:32.105624+00:00"
+      "timestamp": "2026-02-19T22:41:57.518456+00:00"
     }
   ],
   "retry_limit": 5,

@@ -271,7 +271,10 @@ function GlobalStatusBanner({ data }: { data: RunResponse }) {
   let bg = "#dcfce7";
   let border = "#22c55e";
   let color = "#166534";
-  let text = "CI/CD HEALING SUCCESSFUL — All tests passed after automated fixes.";
+  let text =
+    totalFixes > 0
+      ? "CI/CD HEALING SUCCESSFUL — All tests passed after automated fixes."
+      : "CI/CD HEALING SUCCESSFUL — All tests passed (no fixes needed).";
 
   if (hasError) {
     bg = "#fee2e2";

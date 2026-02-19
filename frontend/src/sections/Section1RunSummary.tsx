@@ -9,9 +9,12 @@ export function Section1RunSummary({ data }: { data: RunResponse }) {
   const timeStr = timeSeconds != null ? `${Number(timeSeconds).toFixed(2)} seconds` : "—";
 
   const branchName = data.branch_name ?? "";
+  const totalFixes = data.total_fixes_applied ?? 0;
   const repoUrl = data.repo_url ?? "";
   const prLink =
-    repoUrl && branchName ? `${repoUrl.replace(/\/$/, "")}/compare/main...${branchName}` : "";
+    repoUrl && branchName && totalFixes > 0
+      ? `${repoUrl.replace(/\/$/, "")}/compare/main...${branchName}`
+      : "";
 
   return (
     <section className="dashboard-section" style={{ padding: "1.5rem" }}>
@@ -31,11 +34,11 @@ export function Section1RunSummary({ data }: { data: RunResponse }) {
         />
         <div>
           <div style={{ fontSize: "0.875rem", color: "#64748b", marginBottom: "0.5rem" }}>
-            Fix Branch Created
+            Fix Branch
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
             <span style={{ fontSize: "1.1rem", fontWeight: 600, color: "#1e293b" }}>
-              {branchName || "—"}
+              {totalFixes > 0 ? branchName : branchName ? `${branchName} (not pushed)` : "—"}
             </span>
             {prLink && (
               <a

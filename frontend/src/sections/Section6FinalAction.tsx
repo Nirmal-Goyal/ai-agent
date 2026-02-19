@@ -3,9 +3,12 @@ import type { RunResponse } from "../types";
 export function Section6FinalAction({ data }: { data: RunResponse }) {
   const isPassed = data.ci_status === "PASSED";
   const branchName = data.branch_name ?? "";
+  const totalFixes = data.total_fixes_applied ?? 0;
   const repoUrl = data.repo_url ?? "";
   const prLink =
-    repoUrl && branchName ? `${repoUrl.replace(/\/$/, "")}/compare/main...${branchName}` : "";
+    repoUrl && branchName && totalFixes > 0
+      ? `${repoUrl.replace(/\/$/, "")}/compare/main...${branchName}`
+      : "";
 
   return (
     <section className="dashboard-section">
