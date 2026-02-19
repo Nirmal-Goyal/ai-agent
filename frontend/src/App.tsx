@@ -1,10 +1,11 @@
 import { useState } from "react";
 import type { RunResponse, RunRequest } from "./types";
-import { Section1RunInfo } from "./sections/Section1RunInfo";
-import { Section2StatusMetrics } from "./sections/Section2StatusMetrics";
+import { Section1RunSummary } from "./sections/Section1RunSummary";
+import { Section2AgentFlow } from "./sections/Section2AgentFlow";
 import { Section3Score } from "./sections/Section3Score";
 import { Section4Fixes } from "./sections/Section4Fixes";
 import { Section5CITimeline } from "./sections/Section5CITimeline";
+import { Section5RepoMetadata } from "./sections/Section5RepoMetadata";
 
 const API_BASE = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api`
@@ -191,7 +192,7 @@ function RunForm({
           cursor: loading ? "not-allowed" : "pointer",
         }}
       >
-        {loading ? "Running..." : "Run Agent"}
+        {loading ? "AI agent is analyzing your repository and running CI tests…" : "Run Agent"}
       </button>
     </form>
   );
@@ -202,11 +203,12 @@ function Dashboard({ data }: { data: RunResponse }) {
     <div style={{ marginTop: "2rem" }}>
       <h2 style={{ fontSize: "1.25rem", marginBottom: "1rem" }}>Results</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <Section1RunInfo data={data} />
-        <Section2StatusMetrics data={data} />
+        <Section1RunSummary data={data} />
+        <Section2AgentFlow data={data} />
         <Section3Score data={data} />
         <Section4Fixes data={data} />
         <Section5CITimeline data={data} />
+        <Section5RepoMetadata data={data} />
       </div>
     </div>
   );

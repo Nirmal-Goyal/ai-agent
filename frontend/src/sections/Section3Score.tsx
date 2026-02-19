@@ -12,7 +12,7 @@ export function Section3Score({ data }: { data: RunResponse }) {
   const totalPct = Math.min(100, Math.max(0, (total / maxScore) * 100));
   return (
     <section className="dashboard-section">
-      <h3>3. Score</h3>
+      <h3>Score</h3>
       <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
         <ScoreItem label="Base" value={base} />
         <ScoreItem label="Speed Bonus" value={speedBonus} positive />
