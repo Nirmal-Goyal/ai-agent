@@ -1,0 +1,40 @@
+{
+  "repo_url": "https://github.com/Nirmal-Goyal/demo-failing-repo",
+  "team_name": "CodeCrew",
+  "team_leader_name": "Nirmal Goyal",
+  "branch_name": "CODECREW_NIRMAL_GOYAL_AI_Fix",
+  "total_failures": 0,
+  "total_fixes_applied": 1,
+  "ci_status": "PASSED",
+  "total_time_seconds": 11.4,
+  "score": {
+    "base": 100,
+    "speed_bonus": 10,
+    "efficiency_penalty": 0,
+    "total": 110
+  },
+  "fixes": [
+    {
+      "file": "src/validator.py",
+      "bug_type": "SYNTAX",
+      "line_number": 1,
+      "commit_message": "[AI-AGENT] Fix SYNTAX error in src/validator.py line 1",
+      "description": "SYNTAX error in src/validator.py line 1 → Fix: add the colon at the correct position",
+      "status": "Fixed"
+    }
+  ],
+  "ci_timeline": [
+    {
+      "iteration": 1,
+      "status": "FAILED",
+      "timestamp": "2026-02-19T17:16:14.348580+00:00"
+    },
+    {
+      "iteration": 2,
+      "status": "PASSED",
+      "timestamp": "2026-02-19T17:16:16.836683+00:00"
+    }
+  ],
+  "retry_limit": 5,
+  "error": null
+}

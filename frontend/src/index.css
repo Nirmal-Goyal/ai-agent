@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboard-section {
+  padding: 1.25rem;
+  background: #1e293b;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.dashboard-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  #root {
+    padding: 1rem;
+  }
+
+  .dashboard-section {
+    padding: 1rem;
+  }
+
+  .dashboard-section h3 {
+    font-size: 0.9rem;
+  }
+
+  /* Fixes table scroll on small screens */
+  .dashboard-section table {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-section th,
+  .dashboard-section td {
+    padding: 0.35rem !important;
+  }
+}
