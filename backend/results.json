@@ -1,17 +1,17 @@
 {
-  "repo_url": "https://github.com/ANKAN-KUSHWAHA/test-2",
+  "repo_url": "https://github.com/Nirmal-Goyal/python-test-2",
   "team_name": "CodeCrew",
-  "team_leader_name": "xyz",
-  "branch_name": "CODECREW_XYZ_AI_Fix",
+  "team_leader_name": "gif",
+  "branch_name": "CODECREW_GIF_AI_Fix",
   "total_failures": 0,
   "total_fixes_applied": 1,
-  "ci_status": "FAILED",
-  "total_time_seconds": 16.36,
+  "ci_status": "PASSED",
+  "total_time_seconds": 11.18,
   "score": {
     "base": 100,
-    "speed_bonus": 0,
+    "speed_bonus": 10,
     "efficiency_penalty": 0,
-    "total": 100
+    "total": 110
   },
   "fixes": [
     {
@@ -20,36 +20,21 @@
       "line_number": 2,
       "commit_message": "[AI-AGENT] Fix SYNTAX error in src/calculator.py line 2",
       "description": "SYNTAX error in src/calculator.py line 2 → Fix: add the colon at the correct position",
-      "status": "Failed"
+      "status": "Fixed"
     }
   ],
   "ci_timeline": [
     {
       "iteration": 1,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:28:43.605431+00:00"
+      "timestamp": "2026-02-19T22:14:29.793372+00:00"
     },
     {
       "iteration": 2,
-      "status": "FAILED",
-      "timestamp": "2026-02-19T20:28:46.467162+00:00"
-    },
-    {
-      "iteration": 3,
-      "status": "FAILED",
-      "timestamp": "2026-02-19T20:28:48.916902+00:00"
-    },
-    {
-      "iteration": 4,
-      "status": "FAILED",
-      "timestamp": "2026-02-19T20:28:51.194377+00:00"
-    },
-    {
-      "iteration": 5,
-      "status": "FAILED",
-      "timestamp": "2026-02-19T20:28:53.575470+00:00"
+      "status": "PASSED",
+      "timestamp": "2026-02-19T22:14:32.105624+00:00"
     }
   ],
   "retry_limit": 5,
-  "error": "Push failed for src/calculator.py: Cmd('git') failed due to: exit code(128)\n  cmdline: git push --porcelain -- origin CODECREW_XYZ_AI_Fix\n  stderr: 'fatal: unable to access 'https://github.com/ANKAN-KUSHWAHA/test-2/': The requested URL returned error: 403' To push to your repos, add your GitHub Personal Access Token in the form (deployed) or set GITHUB_TOKEN in backend/.env (local). See README."
+  "error": null
 }
