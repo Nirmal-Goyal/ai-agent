@@ -41,4 +41,5 @@ export interface RunRequest {
   repo_url: string;
   team_name: string;
   team_leader_name: string;
+  github_token?: string | null;
 }

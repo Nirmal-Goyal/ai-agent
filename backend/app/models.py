@@ -5,6 +5,7 @@ class RunRequest(BaseModel):
     repo_url: str
     team_name: str
     team_leader_name: str
+    github_token: str | None = None  # Optional per-request token for push (deployed usage)
 
 
 class FixResult(BaseModel):

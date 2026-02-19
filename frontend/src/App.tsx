@@ -101,10 +101,16 @@ function RunForm({
   const [repoUrl, setRepoUrl] = useState("");
   const [teamName, setTeamName] = useState("CodeCrew");
   const [teamLeader, setTeamLeader] = useState("Nirmal Goyal");
+  const [githubToken, setGithubToken] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onRun({ repo_url: repoUrl, team_name: teamName, team_leader_name: teamLeader });
+    onRun({
+      repo_url: repoUrl,
+      team_name: teamName,
+      team_leader_name: teamLeader,
+      github_token: githubToken.trim() || undefined,
+    });
   };
 
   return (
@@ -178,6 +184,25 @@ function RunForm({
             }}
           />
         </div>
+      </div>
+      <div>
+        <label style={{ display: "block", marginBottom: "0.25rem", fontSize: "0.875rem" }}>
+          GitHub Token (optional)
+        </label>
+        <input
+          type="password"
+          value={githubToken}
+          onChange={(e) => setGithubToken(e.target.value)}
+          placeholder="Leave empty to use server token. Add your token to push to your repos."
+          style={{
+            width: "100%",
+            padding: "0.5rem",
+            background: "#0f172a",
+            border: "1px solid #334155",
+            borderRadius: "4px",
+            color: "#e2e8f0",
+          }}
+        />
       </div>
       <button
         type="submit"

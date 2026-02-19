@@ -27,11 +27,12 @@ def run_agent(request: RunRequest) -> RunResponse:
     start_time = time.perf_counter()
 
     try:
-        # 1. Clone and create branch
+        # 1. Clone and create branch (use per-request token if provided)
         repo_path, branch_name = clone_and_create_branch(
             request.repo_url,
             request.team_name,
             request.team_leader_name,
+            token_override=request.github_token,
         )
         repo_path = Path(repo_path)
 
@@ -90,6 +91,8 @@ def run_agent(request: RunRequest) -> RunResponse:
 
         push_errors = state.get("push_errors", []) or []
         error_msg = "; ".join(push_errors) if push_errors else None
+        if error_msg and ("403" in error_msg or "unable to access" in error_msg.lower()):
+            error_msg += " To push to your repos, add your GitHub Personal Access Token in the form (deployed) or set GITHUB_TOKEN in backend/.env (local). See README."
 
         response = build_run_response(
             repo_url=request.repo_url,

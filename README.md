@@ -54,6 +54,15 @@ flowchart TB
 
 ## Quick Start
 
+### Setup Checklist (Local)
+
+- **Python 3.11+**, **Node 18+**
+- `pip install -r backend/requirements.txt` (includes pytest)
+- Create `backend/.env` with `GITHUB_TOKEN=ghp_...` — create a token at [GitHub Settings > Tokens](https://github.com/settings/tokens) with `repo` scope
+- Start backend: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000`
+- Start frontend: `cd frontend && npm install && npm run dev`
+- Open http://localhost:5173
+
 ### Backend
 
 ```bash
@@ -107,7 +116,13 @@ Deploy the `backend/` directory. Set env vars: `GITHUB_TOKEN` (for push), `RETRY
 
 ### GITHUB_TOKEN (for push)
 
-To push fixes to GitHub, add `GITHUB_TOKEN` to `backend/.env` or your deployment env. Create a Personal Access Token at https://github.com/settings/tokens with `repo` scope.
+To push fixes to GitHub:
+
+- **Local:** Add `GITHUB_TOKEN` to `backend/.env`. Copy from `backend/.env.example`.
+- **Deployed:** Set `GITHUB_TOKEN` in your hosting platform (Railway, Render, etc.) for repos you own.
+- **Per-user (deployed):** Visitors can add their own token in the optional "GitHub Token" field in the form to push to their repos. When empty, the server's token is used (for repos the deployer can push to).
+
+Create a Personal Access Token at https://github.com/settings/tokens with `repo` scope.
 
 ## Future Work
 

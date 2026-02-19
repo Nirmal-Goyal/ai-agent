@@ -26,17 +26,21 @@ def create_branch_name(team_name: str, team_leader_name: str) -> str:
 
 
 def clone_and_create_branch(
-    repo_url: str, team_name: str, team_leader_name: str
+    repo_url: str,
+    team_name: str,
+    team_leader_name: str,
+    token_override: str | None = None,
 ) -> tuple[Path, str]:
     """
     Clone repo to temp dir, create fix branch from main/master.
     Returns (repo_path, branch_name).
     Never modifies main.
+    Uses token_override if provided, else GITHUB_TOKEN from env.
     """
     temp_dir = Path(tempfile.gettempdir()) / f"repo_{uuid.uuid4().hex[:8]}"
     temp_dir.mkdir(parents=True, exist_ok=True)
 
-    token = os.environ.get("GITHUB_TOKEN", "").strip()
+    token = (token_override or os.environ.get("GITHUB_TOKEN", "")).strip()
     clone_url = _inject_token(repo_url, token) if token else repo_url
 
     repo = Repo.clone_from(clone_url, temp_dir)
