@@ -1,25 +1,25 @@
 {
-  "repo_url": "https://github.com/Nirmal-Goyal/demo-failing-repo",
+  "repo_url": "https://github.com/Nirmal-Goyal/python-test-2",
   "team_name": "CodeCrew",
   "team_leader_name": "Nirmal Goyal",
   "branch_name": "CODECREW_NIRMAL_GOYAL_AI_Fix",
-  "total_failures": 0,
+  "total_failures": 1,
   "total_fixes_applied": 1,
-  "ci_status": "PASSED",
-  "total_time_seconds": 11.4,
+  "ci_status": "FAILED",
+  "total_time_seconds": 13.08,
   "score": {
     "base": 100,
-    "speed_bonus": 10,
+    "speed_bonus": 0,
     "efficiency_penalty": 0,
-    "total": 110
+    "total": 100
   },
   "fixes": [
     {
-      "file": "src/validator.py",
+      "file": "src/calculator.py",
       "bug_type": "SYNTAX",
-      "line_number": 1,
-      "commit_message": "[AI-AGENT] Fix SYNTAX error in src/validator.py line 1",
-      "description": "SYNTAX error in src/validator.py line 1 → Fix: add the colon at the correct position",
+      "line_number": 2,
+      "commit_message": "[AI-AGENT] Fix SYNTAX error in src/calculator.py line 2",
+      "description": "SYNTAX error in src/calculator.py line 2 → Fix: add the colon at the correct position",
       "status": "Fixed"
     }
   ],
@@ -27,12 +27,27 @@
     {
       "iteration": 1,
       "status": "FAILED",
-      "timestamp": "2026-02-19T17:16:14.348580+00:00"
+      "timestamp": "2026-02-19T18:52:56.628610+00:00"
     },
     {
       "iteration": 2,
-      "status": "PASSED",
-      "timestamp": "2026-02-19T17:16:16.836683+00:00"
+      "status": "FAILED",
+      "timestamp": "2026-02-19T18:52:58.422998+00:00"
+    },
+    {
+      "iteration": 3,
+      "status": "FAILED",
+      "timestamp": "2026-02-19T18:53:00.141882+00:00"
+    },
+    {
+      "iteration": 4,
+      "status": "FAILED",
+      "timestamp": "2026-02-19T18:53:01.903032+00:00"
+    },
+    {
+      "iteration": 5,
+      "status": "FAILED",
+      "timestamp": "2026-02-19T18:53:03.660372+00:00"
     }
   ],
   "retry_limit": 5,

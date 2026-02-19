@@ -1,4 +1,5 @@
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -8,7 +9,7 @@ def run_pytest(repo_path: Path) -> tuple[int, str, str]:
     Returns (exit_code, stdout, stderr).
     """
     result = subprocess.run(
-        ["pytest", "-v", "--tb=short"],
+        [sys.executable, "-m", "pytest", "-v", "--tb=short"],
         cwd=repo_path,
         capture_output=True,
         text=True,

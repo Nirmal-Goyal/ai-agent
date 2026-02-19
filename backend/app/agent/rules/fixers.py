@@ -2,6 +2,7 @@
 
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Callable
 
@@ -102,7 +103,7 @@ def fix_import(file_path: str, line: int | None, full_path: Path, error_snippet:
         return False
     try:
         subprocess.run(
-            ["pip", "install", module],
+            [sys.executable, "-m", "pip", "install", module],
             cwd=full_path.parent,
             capture_output=True,
             text=True,
