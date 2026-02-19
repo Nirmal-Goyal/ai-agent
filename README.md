@@ -112,17 +112,25 @@ vercel deploy
 
 ### Backend (Railway, Render, Fly.io)
 
-Deploy the `backend/` directory. Set env vars: `GITHUB_TOKEN` (for push), `RETRY_LIMIT` (default 5).
+Deploy the `backend/` directory. Set env vars:
 
-### GITHUB_TOKEN (for push)
+- `GITHUB_TOKEN` — fallback for push (optional)
+- `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `BACKEND_URL`, `FRONTEND_URL` — for OAuth (Sign in with GitHub)
+- `RETRY_LIMIT` (default 5)
 
-To push fixes to GitHub:
+### Push (GitHub auth)
 
-- **Local:** Add `GITHUB_TOKEN` to `backend/.env`. Copy from `backend/.env.example`.
-- **Deployed:** Set `GITHUB_TOKEN` in your hosting platform (Railway, Render, etc.) for repos you own.
-- **Per-user (deployed):** Visitors can add their own token in the optional "GitHub Token" field in the form to push to their repos. When empty, the server's token is used (for repos the deployer can push to).
+Two options for push access:
 
-Create a Personal Access Token at https://github.com/settings/tokens with `repo` scope.
+**1. Sign in with GitHub (OAuth)** — Recommended for deployed use. Users click "Sign in with GitHub" and authorize; no token needed. Set:
+
+- `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` — from [GitHub OAuth App](https://github.com/settings/developers)
+- `BACKEND_URL` — backend URL (e.g. `https://backend.onrender.com`)
+- `FRONTEND_URL` — frontend URL (e.g. `https://aiagent-blush.vercel.app`)
+
+In the GitHub OAuth App, set **Authorization callback URL** to `{BACKEND_URL}/auth/callback`.
+
+**2. GITHUB_TOKEN** — Fallback for deployer's repos or local use. Set in `backend/.env` or deployment env. Create at [GitHub Settings > Tokens](https://github.com/settings/tokens) with `repo` scope.
 
 ## Future Work
 
@@ -137,6 +145,7 @@ ai-agent/
 ├── backend/
 │   ├── app/
 │   │   ├── api/run.py       # POST /api/run
+│   │   ├── api/auth.py      # OAuth: /auth/login, /auth/callback
 │   │   ├── agent/           # LangGraph: analyzer, fixer, reviewer, commit
 │   │   ├── services/         # repo, test_runner, git
 │   │   └── utils/           # result_builder

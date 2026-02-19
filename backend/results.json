@@ -1,12 +1,12 @@
 {
-  "repo_url": "https://github.com/Nirmal-Goyal/demo-failing-repo",
+  "repo_url": "https://github.com/ANKAN-KUSHWAHA/test-2",
   "team_name": "CodeCrew",
-  "team_leader_name": "dev",
-  "branch_name": "CODECREW_DEV_AI_Fix",
-  "total_failures": 1,
+  "team_leader_name": "xyz",
+  "branch_name": "CODECREW_XYZ_AI_Fix",
+  "total_failures": 0,
   "total_fixes_applied": 1,
   "ci_status": "FAILED",
-  "total_time_seconds": 18.57,
+  "total_time_seconds": 16.36,
   "score": {
     "base": 100,
     "speed_bonus": 0,
@@ -15,41 +15,41 @@
   },
   "fixes": [
     {
-      "file": "src/utils.py",
+      "file": "src/calculator.py",
       "bug_type": "SYNTAX",
-      "line_number": 3,
-      "commit_message": "[AI-AGENT] Fix SYNTAX error in src/utils.py line 3",
-      "description": "SYNTAX error in src/utils.py line 3 → Fix: add the colon at the correct position",
-      "status": "Fixed"
+      "line_number": 2,
+      "commit_message": "[AI-AGENT] Fix SYNTAX error in src/calculator.py line 2",
+      "description": "SYNTAX error in src/calculator.py line 2 → Fix: add the colon at the correct position",
+      "status": "Failed"
     }
   ],
   "ci_timeline": [
     {
       "iteration": 1,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:06:45.246676+00:00"
+      "timestamp": "2026-02-19T20:28:43.605431+00:00"
     },
     {
       "iteration": 2,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:06:48.056421+00:00"
+      "timestamp": "2026-02-19T20:28:46.467162+00:00"
     },
     {
       "iteration": 3,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:06:50.551548+00:00"
+      "timestamp": "2026-02-19T20:28:48.916902+00:00"
     },
     {
       "iteration": 4,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:06:53.824575+00:00"
+      "timestamp": "2026-02-19T20:28:51.194377+00:00"
     },
     {
       "iteration": 5,
       "status": "FAILED",
-      "timestamp": "2026-02-19T20:06:56.283562+00:00"
+      "timestamp": "2026-02-19T20:28:53.575470+00:00"
     }
   ],
   "retry_limit": 5,
-  "error": null
+  "error": "Push failed for src/calculator.py: Cmd('git') failed due to: exit code(128)\n  cmdline: git push --porcelain -- origin CODECREW_XYZ_AI_Fix\n  stderr: 'fatal: unable to access 'https://github.com/ANKAN-KUSHWAHA/test-2/': The requested URL returned error: 403' To push to your repos, add your GitHub Personal Access Token in the form (deployed) or set GITHUB_TOKEN in backend/.env (local). See README."
 }
