@@ -59,13 +59,26 @@ function setStoredToken(token: string | null) {
   }
 }
 
+function isAuthPushError(error: string | null | undefined): boolean {
+  if (!error) return false;
+  const lower = error.toLowerCase();
+  return lower.includes("403") || lower.includes("unable to access");
+}
+
 export default function App() {
   const [result, setResult] = useState<RunResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [githubToken, setGithubToken] = useState<string | null>(getStoredToken);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [showAuthPopup, setShowAuthPopup] = useState(false);
   const loadingStep = useLoadingStep(loading);
+
+  useEffect(() => {
+    if (result?.error && isAuthPushError(result.error)) {
+      setShowAuthPopup(true);
+    }
+  }, [result?.error]);
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
@@ -258,6 +271,87 @@ export default function App() {
       {result && (
         <Dashboard data={result} />
       )}
+
+      {showAuthPopup && (
+        <AuthRequiredModal
+          onSignIn={handleSignIn}
+          onDismiss={() => setShowAuthPopup(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+function AuthRequiredModal({
+  onSignIn,
+  onDismiss,
+}: {
+  onSignIn: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          background: "#ffffff",
+          borderRadius: "12px",
+          padding: "1.5rem 2rem",
+          maxWidth: "420px",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        }}
+      >
+        <h3 style={{ margin: "0 0 0.75rem 0", fontSize: "1.25rem", fontWeight: 700, color: "#1e293b" }}>
+          Sign in required
+        </h3>
+        <p style={{ margin: "0 0 1.5rem 0", fontSize: "1rem", color: "#475569", lineHeight: 1.5 }}>
+          To push fixes to your branch, sign in with GitHub. This allows the agent to push changes to
+          your repository.
+        </p>
+        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+          <button
+            type="button"
+            onClick={onDismiss}
+            style={{
+              padding: "0.5rem 1rem",
+              background: "#f1f5f9",
+              border: "1px solid #cbd5e1",
+              borderRadius: "6px",
+              color: "#475569",
+              cursor: "pointer",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+            }}
+          >
+            Dismiss
+          </button>
+          <button
+            type="button"
+            onClick={onSignIn}
+            style={{
+              padding: "0.5rem 1rem",
+              background: "#24292e",
+              border: "1px solid #444d56",
+              borderRadius: "6px",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "0.875rem",
+              fontWeight: 600,
+            }}
+          >
+            Sign in with GitHub
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
